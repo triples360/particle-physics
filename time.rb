@@ -1,7 +1,12 @@
 require_relative 'space'
 
 class Time
+    attr_accessor :spc
     def initialize
+        @spc = Space.new()
+        @spc.add_particle(1)
+        @spc.add_particle(2, [1, 'up'], [2, 2])
+        p @spc.grid.values
     end
 
     def initiate_space(spc)
@@ -11,25 +16,17 @@ class Time
         p prtcs
     end
 
-    def grab_particles(spc)
-        res = []
-        grid = spc.grid
-        for i in 0...grid.length
-            for j in 0...grid[i].length
-                if(grid[i][j] != nil)
-                    res << grid[i][j]
-                end
-            end
-        end
-        return res
-    end
-
     # Function move once: it would move time by one unit
-    def one_unit()
-        prtcs = grab_particles(spc)
-        for i in 0...prtcs.length
-            #move particles
+    # Take all particles and move them one time unit.
+
+    def elapse()
+        new_positions = []
+        particles = spc.particles
+        for el in particles
+            new_positions << el.move_unit()
         end
+        p new_positions
+        #spc.collision?(new_positions)
     end
 
 end

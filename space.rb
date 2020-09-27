@@ -1,11 +1,19 @@
 class Space
     attr_accessor :grid
     def initialize()
-        @grid = []
-        for i in 0...10
-            t = Array.new(10, nil)
-            @grid << t
-        end
+        @grid = Hash.new()
     end
-end
 
+    def add_particle(mass, vel=[0,0], pos=[0,0])
+        @grid[pos] = Particle.new(mass, vel, pos)
+    end
+
+    def particles()
+        @grid.values
+    end
+
+    def collision?(new_positions)
+        # To be implemented
+    end
+
+end
